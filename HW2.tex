@@ -7,25 +7,33 @@
 \usepackage{amsmath}
 \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
-\title{Probability and Computing - HW1}
+\title{Probability and Computing - HW2}
 \author{Pang Liang\\ Student No. 201418013229033}
 
 \begin{document}
 \maketitle
 
 \section{Problem1}
-Deduce the expected run time of Quick-Sort, using conditional expectation.\\
+Prove the following extensions of the Chernoff bound. Let $X=\sum_{i=1}^{n} X_i$, where the $X_i$ are independent 0-1 random variables. Let $\mu = E[X]$. Choose any $\mu_L$ and $\mu_H$ such that $\mu_L \le \mu \le \mu_H$. Then, for any $\delta > 0$, $Pr(X \ge (1+\delta) \mu_H) \le (\frac{e^\delta}{(1+\delta)^{(1+\delta)}}) \mu_H$.
+Similarly, for any $0 < \delta < 1$, $Pr(X \le (1-\delta) \mu_L) \le (\frac{e^{-\delta}}{(1-\delta)^{(1-\delta)}}) \mu_L$.\\
 
 
 
 \section{Problem2}
-Why does the probability that the second door hides a car changes after Monty Hall opens the third door? An intuitive interpretation is preferred.\\
+Consider a collection $X_1, \cdots X_n$ of n independent integers chosen uniformly from the set $\{0,1,2\}$. Let $X=\sum_{i=1}^{n}X_i$ and $0 < \delta < 1$. Derive a Chernoff bound for $Pr(X \le (1-\delta)n)$.\\
 
 \section{Problem3}
-The proof of Jensen's Inequality in the text book assumes that the convex function $f$ is twice differentiable. Present a convex function that is not differentiable, and show that Jensen's Inequality holds even if the convex function is not differentiable. Only discrete probability is considered.\\
+Let $X_1, \cdots X_n$ be independent Poisson trials such that $Pr(X_i = 1) = p_i$ and let $a_1, \cdots a_n$ be real numbers in $[0, 1]$. let $X = \sum_{i=1}^{n} a_iX_i$ and $\mu = E[X]$. Then the following Chernoff bound holds: for any $\delta > 0$, $Pr(X \ge (1+\delta) \mu) \le (\frac{e^\delta}{(1+\delta)^{(1+\delta)}})^\mu$. Also prove a similar bound for the probability $Pr(X \le (1-\delta)\mu)$ for any $0 < \delta < 1$.\\
 
 \section{Problem4}
-Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Send the result to \url{advanced\_algorithm@163.com} in a string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.\\
+Recall that a function $f$ is said to be convex if, for any $x_1, x_2$ and for $0 \le \lambda \le 1$, $f(\lambda x_1 + (1-\lambda) x_2) \le \lambda f(x_1)+ (1-\lambda) f(x_2)$.
+\begin{itemize}
+    \item Let $Z$ be a random variable that takes on a finite set of values in $[0, 1]$, and let $p = E[Z]$. Define the Bernoulli random variable $X$ by $Pr(X = 1) = p$ and $Pr(X = 0) = 1-p$. Show that $E[f(Z)] \le E[f(X)]$ for any convex function $f$. 
+    \item Use the fact that $f(x) = e^{tx}$ is convex for any fixed $t \ge 0$ to obtain a Chernoff-like bound for $Z$.\\
+\end{itemize}
 
-0010000110 1111100011
+\section{Problem5}
+Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.\\
+
+0010111001 0001000010
 \end{document}
