@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+\usepackage[ansinew]{inputenc} % ASCII (Western CP)
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+\usepackage{geometry}
+\usepackage{amsmath}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\title{Probability and Computing - HW3}
+\author{Pang Liang\\ Student No. 201418013229033}
+
+\begin{document}
+\maketitle
+
+\section{Problem1}
+Suppose that balls are thrown randomly into $n$ bins. Show, for some constant $c_1$, that
+if there are $c_1\sqrt{n}$ balls then the probability that no two land in the same bin is at most
+$1/e$. Similarly, show for some constant $c_2$ (and sufficiently large $n$) that, if there are $c_2\sqrt{n}$
+balls, then the probability that no two land in the same bin is at least $1/2$. Make these
+constants as close to optimum as possible. Hint: you may need the fact that $e^{-x} \ge 1-x$
+and $e^{-x-x^2} \le 1-x$ for $x \le 1/2$.
+
+\begin{itemize}
+    \item Find $c_1$
+    The probability that max load is 1 is
+    \begin{equation}
+        \begin{split}
+        Pr(MaxLoad=1) &= (1-\frac{1}{n})(1-\frac{2}{n})\cdots (1-\frac{c_1\sqrt{n}}{n}) \\
+        &\le \prod_{i=1}^{c_1\sqrt{n}-1} e^{-\frac{i}{n}} \\
+        &= e^{\frac{c_1\sqrt{n}-c_1^2n}{2n}} \\
+        &\le e^{\frac{c_1-c_1^2}{2}}
+        \end{split}
+    \end{equation}
+    Then we set $\frac{c_1-c_1^2}{2} \le -1$, and get $c_1 \ge 2$.
+    \item
+    The probability that max load is 1 is
+    \begin{equation}
+        \begin{split}
+        Pr(MaxLoad=1) &= (1-\frac{1}{n})(1-\frac{2}{n})\cdots (1-\frac{c_2\sqrt{n}}{n}) \\
+        &\ge \prod_{i=1}^{c_2\sqrt{n}-1} e^{-\frac{i}{n}-\frac{i^2}{n^2}} \\
+        &= e^{ -\frac{c_2\sqrt{n}(c_2\sqrt{n})}{2n} -\frac{(c_2\sqrt{n}-1)c_2\sqrt{n}(2c_2\sqrt{n}-1)}{6n^2}} \\
+        &\ge e^{ -\frac{c_2^2}{2} -\frac{2c_2^3n\sqrt{n}}{6n^2} } \\
+        &\ge e^{ -\frac{c_2^2}{2} -\frac{c_2^3}{3} } \\
+        &\ge 1 -\frac{c_2^2}{2} -\frac{c_2^3}{3}
+        \end{split}
+    \end{equation}
+    Then we set $1 -\frac{c_2^2}{2} -\frac{c_2^3}{3} \ge \frac{1}{2}$, and get $0 \le c_2 \le 0.8$ .
+\end{itemize}
+
+\section{Problem2}
+Let $X$ be a Poisson random variable with mean $\mu$, representing the number of errors on a
+page of this book. Each error is independently a grammatical error with probability $p$ and
+a spelling error with probability $1-p$. If $Y$ and $Z$ are random variables representing the
+numbers of grammatical and spelling errors (respectively) on a page of this book, Prove
+that $Y$ and $Z$ are Poisson random variables with means $p\mu$ and $(1-p)\mu$, respectively.
+Also, prove that $Y$ and $Z$ are independent.
+
+We know $X ~ Poisson(\mu)$. So
+
+\begin{equation}
+    Pr(X=k) = e^{-\mu} \frac{\mu^k}{k!}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+    Pr(Y=k) &= \sum_{i=k}^{\infty} Pr(X=i) \left( \begin{array}{l} k\\i\end{array} \right) p^k (1-p)^{i-k} \\
+    &= \frac{e^{-\mu} p^k \mu^k}{k!} \sum_{i=k}^{\infty} \frac{\mu^{i-k}(1-p)^{i-k}}{(i-k)!} \\
+    &= \frac{e^{-\mu} p^k \mu^k e^{\mu(1-p)}}{k!} \\
+    &= e^{-\mu p}\frac{(\mu p)^k}{k!}
+    \end{split}
+\end{equation}
+So $Y ~ Poisson(p\mu)$, and for the similar reason $Z ~ Poisson((1-p)\mu)$.
+
+Because
+\begin{equation}
+    \begin{split}
+    Pr(Y=k_1, Z=k_2) &= Pr(X=k_1+k_2) \left( \begin{array}{l} k_1\\(k_1+k_2)\end{array} \right) p^{k_1} (1-p)^{k_2} \\
+    &= e^{-\mu} \frac{\mu^{k_1+k_2}}{(k_1+k_2)!} \frac{(k_1+k_2)!}{k_1! k_2!} p^{k_1} (1-p)^{k_2}\\
+    &= e^{-p\mu} \frac{(p\mu)^(k_1)}{k_1!} * e^{-(1-p)\mu} \frac{((1-p)\mu)^{k_2}}{k_2!} \\
+    &= Pr(Y=k_1) * Pr(Z=k_2)
+    \end{split}
+\end{equation}
+$Y$ and $Z$ are independent.
+
+\section{Problem3}
+Suppose that we vary the balls-and-bins process as follows. For convenience let the bins
+be numbered from 0 to $n-1$. There are $log_2n$ players. Each player randomly chooses a
+starting location l uniformly from $[0, n-1]$ and then places one ball in each of the bins
+numbered $l$ mode $n$, $l + 1$ mode $n,\dots l+n/ \log_{2}n -1$ mode $n$. Argue that the maximum
+load in this case is only $O(\log \log n / \log \log \log n)$ with probability that approaches 1 as
+$n \to \infty$.
+
+
+\section{Problem4}
+Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
+string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
+
+
+\end{document}
