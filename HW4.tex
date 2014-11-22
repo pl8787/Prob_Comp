@@ -14,10 +14,31 @@
 \maketitle
 
 \section{Problem1}
-Consider the probability that every bin receives exactly one ball when $n$ balls are thrown randomly into n bins.
+Consider the probability that every bin receives exactly one ball when $n$ balls are thrown randomly into $n$ bins.
 \begin{itemize}
 \item Give an upper bound on this probability using the Poisson approximation.
 \item Determine the exact probability of this event.
+\end{itemize}
+
+Answers:
+\begin{itemize}
+\item Using the Poisson approximation
+we assume that there are $n$ independent Poisson distribution, and this can be a upper bound approximation as:
+\begin{equation}
+    \begin{split}
+    (X_1^{(n)}, X_2^{(n)}, \dots, X_n^{(n)}) &\le e\sqrt{n} (Y_1^{(n)}, Y_2^{(n)}, \dots, Y_n^{(n)})\\
+    &= e\sqrt{n} \prod_{i=1}^n e^{-1}\\
+    &= e^{1-n}\sqrt{n}
+    \end{split}
+\end{equation}
+
+\item We throw balls one by one then,
+\begin{equation}
+    \begin{split}
+    (X_1^{(n)}, X_2^{(n)}, ..., X_n^{(n)}) &= (1-\frac{0}{n})(1-\frac{1}{n})\dots(1-\frac{n-1}{n})\\
+    &= \frac{n!}{n^n}
+    \end{split}
+\end{equation}
 \end{itemize}
 
 \section{Problem2}
@@ -29,11 +50,58 @@ The system evolves over rounds. Every round, balls are thrown independently and 
 
 \end{itemize}
 
+Answers:
+\begin{itemize}
+\item First we consider the probability $P(X_i)$ of one box is one ball,
+\begin{equation}
+    P(X_i) = (1-\frac{1}{n})^{b-1}*\frac{1}{n}*b
+\end{equation}
+So the expectation number of one ball box is:
+\begin{equation}
+    E[X] = E[\sum X_i] = \sum E[X_i] = n(1-\frac{1}{n})^{b-1}*\frac{1}{n}*b = b(1-\frac{1}{n})^{b-1}
+\end{equation}
+Then the question of the remain ball at the start of the next round is $b-b(1-\frac{1}{n})^{b-1}$.
+
+\item
+From Q1 we have 
+\begin{equation}
+    \begin{split}
+    x_{j+1} &= x_j - x_j(1-\frac{1}{n})^{x_j-1}\\
+    &\le x_j - x_j (1-\frac{x_j-1}{n})\\
+    &= \frac{x_j*x_j}{n}-\frac{x_j}{n}\\
+    &\le \frac{x_j^2}{n}
+    \end{split}
+\end{equation}
+\end{itemize}
+
 \section{Problem3}
 Let $X^{(m)}_i$ be the number of balls in bin i when m balls are independently and uniformly thrown at random into n bins, and $Y^{(m)}_i , 1 \le i \le n$, are independent Poisson random variables each having expectation $m/n$. Assume that $f$ is a nonnegative function.
 \begin{itemize}
 \item Prove that if $E[f(X_1^{(m)}, \dots, X_n^{(m)})]$ is monotonically increasing in $m$, then $E[f(X_1^{(m)}, \dots, X_n^{(m)})] \le 2E[f(Y_1^{(m)}, \dots, Y_n^{(m)})]$. (Hint: Show that $E[f(Y_1^{(m)}, \dots, Y_n^{(m)})] \ge E[f(X_1^{(m)}, \dots, X_n^{(m)})] Pr(\sum Y_i^{(m)} \ge m)$ and $Pr(\sum Y_i^{(m)} \ge m) \ge 1/2$.
 \item (Bonus score 5 points) If $E[f(X_1^{(m)}, \dots, X_n^{(m)})]$ is monotonically decreasing in m, then $E[f(X_1^{(m)}, \dots, X_n^{(m)})] \le 2E[f(Y_1^{(m)}, \dots, Y_n^{(m)})]$.
+\end{itemize}
+
+Answers:
+\begin{itemize}
+\item First we use Poisson Approximation,
+\begin{equation}
+    \begin{split}
+    E[f(Y_1^{(m)}, \dots, Y_n^{(m)})] &= \sum_{k=0}^{\infty} E[f(Y_1^{(m)}, \dots, Y_n^{(m)}) | \sum_{i=1}^{n}Y_{i}^{(m)}=k] Pr(\sum Y_i^{(m)} = k)\\
+    &\ge E[f(Y_1^{(m)}, \dots, Y_n^{(m)}) | \sum_{i=1}^{n}Y_{i}^{(m)} \ge m] Pr(\sum Y_i^{(m)} \ge m)\\
+    &\ge E[f(Y_1^{(m)}, \dots, Y_n^{(m)}) | \sum_{i=1}^{n}Y_{i}^{(m)} =m] Pr(\sum Y_i^{(m)} \ge m)\\
+    &= E[f(X_1^{(m)}, \dots, X_n^{(m)})] Pr(\sum Y_i^{(m)} \ge m)
+    \end{split}
+\end{equation}
+Then we have
+\begin{equation}
+    \begin{split}
+    Pr(\sum Y_i^{(m)} \ge m) &= \sum_{i=m}^{\infty} \frac{m^i e^{-m}}{i!} \\
+    &=  e^{-m} m^m / m! * \sum_{i=1}^{\infty} \frac{1}{i!}\\
+    &= e*\frac{e^{-m} m^m}{m!} \\
+    &\ge e * \frac{1}{e \sqrt{m}} \\
+    &=\frac{1}{\sqrt{m}}
+    \end{split}
+\end{equation}
 \end{itemize}
 
 \section{Problem4}
