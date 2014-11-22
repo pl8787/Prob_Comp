@@ -1,0 +1,45 @@
+\documentclass[12pt]{article}
+\usepackage[ansinew]{inputenc} % ASCII (Western CP)
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+\usepackage{geometry}
+\usepackage{amsmath}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\title{Probability and Computing - HW3}
+\author{Pang Liang\\ Student No. 201418013229033}
+
+\begin{document}
+\maketitle
+
+\section{Problem1}
+Consider the probability that every bin receives exactly one ball when $n$ balls are thrown randomly into n bins.
+\begin{itemize}
+\item Give an upper bound on this probability using the Poisson approximation.
+\item Determine the exact probability of this event.
+\end{itemize}
+
+\section{Problem2}
+The following problem models a simple distributed system wherein agents contend for resources but back off in the face of contention. Balls represent agents, and bins represent resources.\\
+The system evolves over rounds. Every round, balls are thrown independently and uniformly at random into $n$ bins. Any ball that lands in a bin by itself is served and removed from consideration. The remaining balls are thrown again in the next round. We begin with n balls in the first round, and we will finish when every ball is served.
+\begin{itemize}
+\item If there are $b$ balls at the start of a round, what is the expected number of balls at the start of the next round?
+\item Suppose that every round the number of balls served was exactly the expected number of balls to be served. Show that all the balls would be served in $O(ln ln n)$ rounds. (Hint: If $x_j$ is the expected number of balls left after j rounds, show and use that $x_{j+1} \le x^2_j/n$.)
+
+\end{itemize}
+
+\section{Problem3}
+Let $X^{(m)}_i$ be the number of balls in bin i when m balls are independently and uniformly thrown at random into n bins, and $Y^{(m)}_i , 1 \le i \le n$, are independent Poisson random variables each having expectation $m/n$. Assume that $f$ is a nonnegative function.
+\begin{itemize}
+\item Prove that if $E[f(X_1^{(m)}, \dots, X_n^{(m)})]$ is monotonically increasing in $m$, then $E[f(X_1^{(m)}, \dots, X_n^{(m)})] \le 2E[f(Y_1^{(m)}, \dots, Y_n^{(m)})]$. (Hint: Show that $E[f(Y_1^{(m)}, \dots, Y_n^{(m)})] \ge E[f(X_1^{(m)}, \dots, X_n^{(m)})] Pr(\sum Y_i^{(m)} \ge m)$ and $Pr(\sum Y_i^{(m)} \ge m) \ge 1/2$.
+\item (Bonus score 5 points) If $E[f(X_1^{(m)}, \dots, X_n^{(m)})]$ is monotonically decreasing in m, then $E[f(X_1^{(m)}, \dots, X_n^{(m)})] \le 2E[f(Y_1^{(m)}, \dots, Y_n^{(m)})]$.
+\end{itemize}
+
+\section{Problem4}
+Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
+string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
+
+1000111000 1110110101
+
+\end{document}
