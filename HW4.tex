@@ -63,7 +63,7 @@ So the expectation number of one ball box is:
 Then the question of the remain ball at the start of the next round is $b-b(1-\frac{1}{n})^{b-1}$.
 
 \item
-From Q1 we have 
+From Q1 we have
 \begin{equation}
     \begin{split}
     x_{j+1} &= x_j - x_j(1-\frac{1}{n})^{x_j-1}\\
@@ -73,6 +73,25 @@ From Q1 we have
     \end{split}
 \end{equation}
 \end{itemize}
+
+Then using this we have:
+\begin{equation}
+    \begin{split}
+    x_1 &\le \frac{x_0^2}{n} \\
+    x_2 \le \frac{(\frac{x_0^2}{n})^2}{n} &= \frac{x_0^4}{n^3}\\
+    &\cdots \\
+    x_j &\le \frac{x_0^{2^j}}{n^{2^j-1}}
+    \end{split}
+\end{equation}
+Let $x_{j-1}=1$, then all balls will be served in j rounds.
+\begin{equation}
+    \begin{split}
+    n^{2^{j-1}-1} &\le x_0^{2^{j-1}} \\
+    2^{j-1} &\le \frac{ln n}{ln n - ln x_0} \\
+    j-1 &\le ln ln n - ln(ln n - ln x_0) \\
+    \end{split}
+\end{equation}
+Because $x_0=n$, $j-1 = ln ln n$. We get $j = O(ln ln n)$.
 
 \section{Problem3}
 Let $X^{(m)}_i$ be the number of balls in bin i when m balls are independently and uniformly thrown at random into n bins, and $Y^{(m)}_i , 1 \le i \le n$, are independent Poisson random variables each having expectation $m/n$. Assume that $f$ is a nonnegative function.
@@ -87,27 +106,44 @@ Answers:
 \begin{equation}
     \begin{split}
     E[f(Y_1^{(m)}, \dots, Y_n^{(m)})] &= \sum_{k=0}^{\infty} E[f(Y_1^{(m)}, \dots, Y_n^{(m)}) | \sum_{i=1}^{n}Y_{i}^{(m)}=k] Pr(\sum Y_i^{(m)} = k)\\
-    &\ge E[f(Y_1^{(m)}, \dots, Y_n^{(m)}) | \sum_{i=1}^{n}Y_{i}^{(m)} \ge m] Pr(\sum Y_i^{(m)} \ge m)\\
-    &\ge E[f(Y_1^{(m)}, \dots, Y_n^{(m)}) | \sum_{i=1}^{n}Y_{i}^{(m)} =m] Pr(\sum Y_i^{(m)} \ge m)\\
+    &= \sum_{k=0}^{\infty} E[f(X_1^{(k)}, \dots, X_n^{(k)})] Pr(\sum Y_i^{(m)} = k)\\
+    &\ge \sum_{k=m}^{\infty} E[f(X_1^{(k)}, \dots, X_n^{(k)})] Pr(\sum Y_i^{(m)} = k)\\
+    &\ge \sum_{k=m}^{\infty} E[f(X_1^{(m)}, \dots, X_n^{(m)})] Pr(\sum Y_i^{(m)} = k) \\
+    &\; Because\ the\ increase\ of\ E[f(X_1^{(m)}, \dots, X_n^{(m)})]\\
     &= E[f(X_1^{(m)}, \dots, X_n^{(m)})] Pr(\sum Y_i^{(m)} \ge m)
     \end{split}
 \end{equation}
-Then we have
+Then we set $Z = \sum Y_i^{(m)}$ obey the poisson distribution with mean $m$. So we consider the relation between $Pr(Z=i)$ and $Pr(Z=i+m)$ for $i<m$.
 \begin{equation}
     \begin{split}
-    Pr(\sum Y_i^{(m)} \ge m) &= \sum_{i=m}^{\infty} \frac{m^i e^{-m}}{i!} \\
-    &=  e^{-m} m^m / m! * \sum_{i=1}^{\infty} \frac{1}{i!}\\
-    &= e*\frac{e^{-m} m^m}{m!} \\
-    &\ge e * \frac{1}{e \sqrt{m}} \\
-    &=\frac{1}{\sqrt{m}}
+    \frac{Pr(Z=i+m)}{Pr(Z=i)} &= \frac{m^(i+m) e^{-m}}{(i+m)!} * \frac{i!}{m^i e^{-m}}\\
+    &= \frac{m^m}{(i+1)(i+2)\dots(i+m)} \\
+    &\ge 1
     \end{split}
 \end{equation}
+According to $Pr(Z=i) \le Pr(Z=i+m)$, we have $Pr(Z<m) \le Pr(m \le Z < 2m)$.
+Because $1=Pr(Z<m) + Pr(Z\ge m)\le Pr(m \le Z < 2m) + Pr(Z\ge m) \le 2Pr(Z\ge m)$, we get $Pr(Z\ge m) \ge \frac{1}{2}$.
+
+So combine these condition, we get the result $E[f(X_1^{(m)}, \dots, X_n^{(m)})] \le 2E[f(Y_1^{(m)}, \dots, Y_n^{(m)})]$.
+
+\item
+\begin{equation}
+    \begin{split}
+    E[f(Y_1^{(m)}, \dots, Y_n^{(m)})] &= \sum_{k=0}^{\infty} E[f(Y_1^{(m)}, \dots, Y_n^{(m)}) | \sum_{i=1}^{n}Y_{i}^{(m)}=k] Pr(\sum Y_i^{(m)} = k)\\
+    &\ge \sum_{k=m}^{\infty} E[f(Y_1^{(m)}, \dots, Y_n^{(m)}) | \sum_{i=1}^{n}Y_{i}^{(m)}=k] Pr(\sum Y_i^{(m)} = k)\\
+    &= \sum_{k=m}^{\infty} E[f(X_1^{(k)}, \dots, X_n^{(k)})] Pr(\sum Y_i^{(m)} = k)\\
+    &\ge \sum_{k=m}^{\infty} E[f(X_1^{(m)}, \dots, X_n^{(m)})] Pr(\sum Y_i^{(m)} = k) \\
+    &\; Because\ the\ decrease\ of\ E[f(X_1^{(m)}, \dots, X_n^{(m)})]\\
+    &= E[f(X_1^{(m)}, \dots, X_n^{(m)})] Pr(\sum Y_i^{(m)} \ge m)
+    \end{split}
+\end{equation}
+The other steps is follow the question above. So $E[f(X_1^{(m)}, \dots, X_n^{(m)})] \le 2E[f(Y_1^{(m)}, \dots, Y_n^{(m)})]$.
 \end{itemize}
 
 \section{Problem4}
 Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
 string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
 
-1000111000 1110110101
+1110110100 1100001011
 
 \end{document}
