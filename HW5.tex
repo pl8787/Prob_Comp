@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+\usepackage[ansinew]{inputenc} % ASCII (Western CP)
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+\usepackage{geometry}
+\usepackage{amsmath}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\title{Probability and Computing - HW5}
+\author{Pang Liang\\ Student No. 201418013229033}
+
+\begin{document}
+\maketitle
+
+\section{Problem1}
+Bloom filters can be used to estimate set differences. Suppose Alice has a set $X$ and Bob has a set $Y$ , both with $n$ elements. For example, the sets might represent their 100 favorite songs. Alice and Bob create Bloom filters of their sets respectively, using the same number of bits $m$ and the same $k$ hash functions. Determine the expected number of bits where our Bloom filters differ as a function of $m, n, k$ and $|X \bigcap Y|$. Explain how this could be used as a tool to find people with the same taste in music more easily than comparing lists of songs directly.
+
+Solution:\\
+First we set $t=|X \bigcap Y|$ for simplify our equations. As the same of original Bloom filters analyze, we have the probability of a specific bin equivalent to 0 is 
+\begin{equation}
+    p = (1-\frac{1}{m})^{kn} \approx e^{-kn/m}
+\end{equation}
+and we also assume that $p$ is the fraction of 0 after set $X$ elements hashed into the Bloom filter.
+
+The false positive of this Bloom filter is that the different $n-t$ songs in set $Y$ do not hit the 0 bin. So the probability of a false positive is then
+\begin{equation}
+    f = (1-p)^{(n-t)k} \approx (1-e^{-kn/m})^{(n-t)k}
+\end{equation}
+
+If we want this probability of a false positive to be less than a constant $c$, we need
+\begin{equation}
+    \begin{split}
+    p &\ge 1 - c^{\frac{1}{(n-t)k}}\\
+    m &\ge \frac{-kn}{\ln (1-c^{\frac{1}{(n-t)k}})}
+    \end{split}
+\end{equation}
+
+So $m=\Omega(kn)$. 
+
+In order to use this method, we need Hash set $X$ and $Y$, and compare the $m$ bits. If they are not equal, $X$ and $Y$ are different. If they are equal, $X$ and $Y$ are equal in very high probability.
+
+\section{Problem2}
+We have shown that any event that occurs with small probability in the balls-and-bins setting where the number of balls in each bin is an independent Poisson random variable also occurs with small probability in the standard balls-and-bins model. Prove a similar statement for random graphs: every event that happens with small probability in the $G_{n,p}$ model also happens with small probability in the $G_{n,N}$ model for $N = ({}^n_2)p$.
+
+\section{Problem3}
+We have an algorithm (Algorithm 5.2 in the textbook) which finds Hamiltonian cycles. We have shown that the algorithm can be applied to find a Hamiltonian cycle with high probability in a graph chosen randomly from $G_{n,p}$ when $p$ is known and sufficiently large, by initially placing edges in the edge lists appropriately. Argue that the algorithm can similarly be applied to find a Hamiltonian cycle with high probability on a graph chosen randomly from $G_{n,N}$ when $N = c_1n \ln n$ for a suitably large constant $c_1$.
+
+\section{Problem4}
+Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
+string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
+
+
+
+\end{document}
