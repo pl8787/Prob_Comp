@@ -50,11 +50,58 @@ It's very similar with the ball-bin problem. Let's consider edges are the ball w
 We have an algorithm (Algorithm 5.2 in the textbook) which finds Hamiltonian cycles. We have shown that the algorithm can be applied to find a Hamiltonian cycle with high probability in a graph chosen randomly from $G_{n,p}$ when $p$ is known and sufficiently large, by initially placing edges in the edge lists appropriately. Argue that the algorithm can similarly be applied to find a Hamiltonian cycle with high probability on a graph chosen randomly from $G_{n,N}$ when $N = c_1n \ln n$ for a suitably large constant $c_1$.\\
 
 Solution:\\
+For the Algorithm 5.2, let $p_0=40\ln n / n$ and let $G=(V,E)$ be a random graph from distribution $G_{n,p_0}$. Also we set $A_G$ to be the event that "the algorithm fails for graph G", and we can get $P(A_G)=O(\frac{1}{n})$ reference to Corollary 5.17.
+
+Let $M=20n \ln n \ge 20(n-1)\ln n=({}^n_2)p_0=E[|E|]$, $E[|E|]$ represent the expected number of edges in $G_{n,p_0}$. Then we use Markov's inequality:
+\begin{equation}
+    Pr(|E| \ge 2M) \le Pr(|E| \ge 2E[|E|]) \le \frac{1}{2}
+\end{equation}
+thus, $Pr(|E| \le 2M) \ge \frac{1}{2}$.
+
+Then we consider the probability of event $A_G$,
+\begin{equation}
+    \begin{split}
+    Pr(A_G) &\ge Pr(A_G | |E| \le 2M) Pr( |E| \le 2M)\\
+    &\ge \frac{1}{2} Pr(A_G | |E| \le 2M)
+    \end{split}
+\end{equation}
+now we find that $Pr(A_G | |E| \le 2M)=O(\frac{1}{n})$. It means that Algorithm 5.2 hold even if the graphs are drawn from distribution $G_{n,p_0}$ conditioned on event $|E| \le 2M$.
+
+Modify the input graph from $G_{n,N}$ so that the resulting graph follows this conditional distribution.
+
+Let still $G=(V,E) ~ G_{n, p_0}$. For $0\le m\le 2M$, let
+\begin{equation}
+    r_m=Pr(|E| = m | |E|\le 2M) = \frac{Pr(|E|=m)}{Pr(|E|\le 2M)}
+\end{equation}
+so that $(r_0, \dots, r_{2M})$ defines a distribution.
+
+Let $G' = (V, E')$ be a random graph from the following distribution:
+\begin{itemize}
+    \item Draw a random graph $\tilde{G} = (V, \tilde{E})$ from $G_{n, 2M}$.
+    \item Choose $j \in \{0,\dots, 2M\}$ according to distribution $(r_0, \dots, r_{2M})$ (so that $Pr(j=i)=r_i$).
+    \item Choose a subset $E' \subseteq \tilde{E}$ of j nodes (that is, $|E'|=j$) uniformly at random from $\tilde{E}$.
+\end{itemize}
+
+Now, for any set of edges $E_0$ we have 
+\begin{equation}
+    Pr(E'=E_0) = Pr(E=E_0 | |E| \le 2M)
+\end{equation}
+that is , $E'$ follows the desired conditional distribution.
+
+Let $N=2M=40n \ln n$. Now we can use the following algorithm to find the Hamiltonian cycle:
+\begin{itemize}
+    \item Let $\tilde{G} = (V,\tilde{E}) ~ G_{n, N}$.
+    \item Choose $E' \subseteq \tilde{E}$ as above.
+    \item Run the Algorithm 5.2 for graph $G' = (V, E')$ with $p=p_0$.
+\end{itemize}
+
+Since the distribution of $G'$ is same as the distribution $G_{n, p_0}$ conditioned on $|E| \le 2M$, the algorithm finds a Hamiltonian cycle with probability $1-O(1/N)$.
 
 \section{Problem4}
 Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
 string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
 
+0011000011 1010110001
 
 
 \end{document}
