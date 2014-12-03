@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+\usepackage[ansinew]{inputenc} % ASCII (Western CP)
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+\usepackage{geometry}
+\usepackage{amsmath}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\title{Probability and Computing - HW6}
+\author{Pang Liang\\ Student No. 201418013229033}
+
+\begin{document}
+\maketitle
+
+\section{Problem1}
+Given an n-vertex undirected graph $G = (V, E)$, consider the following method of generating an independent set. Given a permutation $\sigma$ of the vertices, define a subset $S(\sigma)$ of the vertices as follows: for each vertex $i, i \in S(\sigma)$ if and only if no neighbor $j$ of $i$ precedes $i$ in the permutation $\sigma$.
+
+\begin{itemize}
+\item Show that each $S(\sigma)$ is an independent set in $G$.
+\item Suggest a natural randomized algorithm to produce $\sigma$ for which you can show that the expected cardinality of $S(\sigma)$ is $\sum_{i=1}^{n} \frac{1}{d_i+1}$, where $d_i$ denotes the degree of vertex $i$.
+\item De-randomizing the above algorithm.
+\end{itemize}
+
+Solution:\\
+
+
+\section{Problem2}
+Prove that, for every integer $n$, there exists a way to 2-color the edges of $K_x$ so that there is no monochromatic clique of size $k$ when $x = n - ({}_k^n) 2^{1-({}_2^k)}$. Note that $K_x$ stands for the x-vertex complete graph. (Hint, start by 2-coloring the edges of $K_n$ and fix things up.)
+
+Solution:\\
+
+\section{Problem3}
+Prove the following claims.
+\begin{itemize}
+\item For every integer $n$, there exists a coloring of the edges of the complete graph $K_n$ by two colors so that the total number of monochromatic copies of $K_4$ is at most $({}_4^n) 2^{-5}$.
+\item Give a randomized algorithm for finding a coloring with at most $({}_4^n) 2^{-5}$ monochromatic copies of $K_4$ that runs in expected time polynomial in $n$.
+\item Show how to construct such a coloring deterministically in polynomial time using the method of conditional expectations.
+\end{itemize}
+
+Solution:\\
+
+\section{Problem4}
+Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
+string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
+
+1110110100 1100001011
+
+\end{document}
