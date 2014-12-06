@@ -23,7 +23,18 @@ Given an n-vertex undirected graph $G = (V, E)$, consider the following method o
 \end{itemize}
 
 Solution:\\
+\begin{itemize}
+\item
+According to the algorithm describe above, we denote the permutation $\sigma$ as $\sigma = {v_1, v_2, \dots, v_i, \dots, v_n}$ where $n$ is the number of vertex. And $S(\sigma)={d_1, d_2, \dots, d_k}$, where $k$ is the size of $S(\sigma)$. Obviously, $d_1 = v_1 \in S(\sigma)$ as the first element. Let's look at the $d_i$ which belongs to $S(\sigma)$. There's no connection with the $d_j$ where $j<i$, because no neighbor of it precedes before. And any $d_j$ where $j>i$ has no connection with $d_i$ for the same reason. So the vertices in $S(\sigma)$ is an independence set in $G$.
 
+\item
+With the natural randomized algorithm to produce $\sigma$. The expectation of vertex $v_i$ in the subset $S(\sigma)$ is $E(v_i) = \frac{1}{d_i+1}$, for the reason of that $v_i$ need occur first within its $d_i$ neighbors and itself, so the probability of that is $\frac{1}{d_i+1}$.\\
+So consider all of $n$ vertices $E(S(\sigma)) = \sum_{i=1}^{n} \frac{1}{d_i+1}$.
+
+\item
+Define 3 kind of vertices set: Unused, S(\sigma), Used. First we random select a vertex in Unused set. Then add this vertex's neighbors and itself into Used set, add itself into $S(\sigma)$, and delete this vertex's neighbors and itself in Unused set. Repeat this step, until the Unused set is empty. 
+
+\end{itemize}
 
 \section{Problem2}
 Prove that, for every integer $n$, there exists a way to 2-color the edges of $K_x$ so that there is no monochromatic clique of size $k$ when $x = n - ({}_k^n) 2^{1-({}_2^k)}$. Note that $K_x$ stands for the x-vertex complete graph. (Hint, start by 2-coloring the edges of $K_n$ and fix things up.)
