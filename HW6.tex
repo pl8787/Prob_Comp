@@ -32,7 +32,8 @@ With the natural randomized algorithm to produce $\sigma$. The expectation of ve
 So consider all of $n$ vertices $E(S(\sigma)) = \sum_{i=1}^{n} \frac{1}{d_i+1}$.
 
 \item
-Define 3 kind of vertices set: Unused, S(\sigma), Used. First we random select a vertex in Unused set. Then add this vertex's neighbors and itself into Used set, add itself into $S(\sigma)$, and delete this vertex's neighbors and itself in Unused set. Repeat this step, until the Unused set is empty. 
+Define 3 kind of vertices set: Unused, $S(\sigma)$, Used. First we random select a vertex in Unused set. Then add this vertex's neighbors and itself into Used set, add itself into $S(\sigma)$, and delete this vertex's neighbors and itself in Unused set. Repeat this step, until the Unused set is empty.\\
+In order to change this algorithm to a de-randomizing one, we change the first step (random select a vertex) to a definite step. We choose the one has the largest degree.
 
 \end{itemize}
 
@@ -40,6 +41,17 @@ Define 3 kind of vertices set: Unused, S(\sigma), Used. First we random select a
 Prove that, for every integer $n$, there exists a way to 2-color the edges of $K_x$ so that there is no monochromatic clique of size $k$ when $x = n - ({}_k^n) 2^{1-({}_2^k)}$. Note that $K_x$ stands for the x-vertex complete graph. (Hint, start by 2-coloring the edges of $K_n$ and fix things up.)
 
 Solution:\\
+In $K_n$ graph chose a k-cliques from $({}_k^n)$ k-cliques in $K_n$. Let $X_i$ be an random variable, such that $X_i=1$ if clique $i$ is monochromatic and 0 otherwise. Further let $X=\sum X_i$.\\
+\begin{equation}
+E[X] = \sum E[X_i] = ({}_k^n) 2^{-({}_2^k)+1}
+\end{equation}
+
+Then we remove a vertex from each monochromatic k-clique. Then the residual graph is a complete graph without monochromatic k-cliques. The expectation of number of vertices in the residual graph is
+\begin{equation}
+    n-E[X] = n - ({}_k^n) 2^{-({}_2^k)+1} = x
+\end{equation}
+
+So there is a 2-coloring of $K_n$ where removing a vertex from each monochromatic k-clique results in a $K_y$, $y\ge x$ that has no monochromatic k-clique. If $K_y$ does not have a monochromatic $K_k$, because $y \ge x$ $K_x$ does not have too.
 
 \section{Problem3}
 Prove the following claims.
@@ -50,11 +62,44 @@ Prove the following claims.
 \end{itemize}
 
 Solution:\\
+\begin{itemize}
+\item
+First we consider random 4 vertices in n-vertices graph. Once one of edges is colored, then the remain $({}_2^4)-1 = 5$ edges have the probability $Pr(A_i) = 2^{-5}$ to color to the same color. Where $A_i$ denote the event that clique $i$ is monochromatic in $({}_4^n)$ cliques. Also we define that if clique $i$ is monochromatic then random variable $A_i=1$, otherwise $A_i=0$. So $E(A_i) = 2^{-5}$.\\
+In order to calculate $E(\sum A_i)$ we yields:
+\begin{equation}
+    E(\sum A_i) = ({}_4^n)2^{-5}
+\end{equation}
+Using the Lemma 6.2 we have $Pr(\sum A_i \le ({}_4^n)2^{-5})>0 $
+So there exist one 2-coloring that has at most $({}_4^n)2^{-5}$ $K_4$ are monochromatic.
 
+\item
+Color the edge independently and uniformly. Denote $X = \sum A_i$. Let $p = Pr(X \le ({}_4^n)2^{-5}$. Then we have
+\begin{equation}
+    \begin{split}
+    ({}_4^n)2^{-5} &= E[X] \\
+    &= \sum_{i \le ({}_4^n)2^{-5}} i Pr(X=i) + \sum_{i \ge ({}_4^n)2^{-5}+1} i Pr(X=i) \\
+    &\ge p + (1-p) ({}_4^n)2^{-5}+1 \\
+    \end{split}
+\end{equation}
+So we have
+\begin{equation}
+    \frac{1}{p} \le ({}_4^n)2^{-5}
+\end{equation}
+Thus, the expected number of samples is at most $({}_4^n)2^{-5}$. Testing to see if $X \le ({}_4^n)2^{-5}$ can be done in $O(n^4)$ time. So the algorithm can be done in polynomial time.
+\item
+Assign values to variables deterministically, one at a time, in an arbitrary order
+$x_1, x_2, \dots , x_n$. Suppose that we have assigned the first k edge. Let $y_1, y_2, \dots , y_k$
+be the corresponding assigned values. We compute the two quantities,
+\begin{equation}
+    E[X | x_1 = y_1, x_2 = y_2, . . . , x_k = y_k, x_{k+1} = color_1 ]\\
+    E[X | x_1 = y_1, x_2 = y_2, . . . , x_k = y_k, x_{k+1} = color_2 ]\\
+\end{equation}
+and then choose the setting with larger expectation.
+\end{itemize}
 \section{Problem4}
 Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
 string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
 
-1110110100 1100001011
+0100110100 0100111011
 
 \end{document}
