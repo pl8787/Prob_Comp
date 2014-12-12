@@ -1,19 +1,48 @@
 \documentclass[12pt]{article}
-\usepackage[ansinew]{inputenc} % ASCII (Western CP)
+\usepackage[utf8]{inputenc}
+\usepackage{filecontents}
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage[colorlinks]{hyperref}
 \usepackage{geometry}
 \usepackage{amsmath}
+\usepackage{csquotes}% Recommended
+\usepackage[style=authoryear-ibid,backend=biber]{biblatex}
+
+\begin{filecontents}{bibtest.bib}
+@online{aardvark2013china,
+ author = {Aardvark, T.},
+ title = {China Bans It's Airlines From Taking Part In {EU} Emissions Trading Scheme},
+ year = {2013},
+ url = {http://toryaardvark.com/2012/02/06/china-bans-etc/},
+ urldate = {2013-03-10}
+}
+@article{aef2013org,
+ author = {AEF},
+ title = {Some Title},
+ journal = {Some Journal},
+ volume = {10},
+ number = {3},
+ year = {2013},
+ url = {http://www.aef.org.uk/?p=803}
+}
+\end{filecontents}
+\addbibresource{bibtest.bib}
+
 \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
-\title{Physical Punishment}
+\title{Parental Corporal Punishment}
 \author{Pang Liang\\ Student No. 201418013229033}
 
 \begin{document}
 \maketitle
 
-Physical punishment "works" in the sense that it may stop a child from misbehaving, but adults who frequently spank and hit are also teaching their children that violence is a good method of accomplishing a goal. Nonviolent methods are a more effective way of training children.\\
+\textbf{Topic:} Physical punishment "works" in the sense that it may stop a child from misbehaving, but adults who frequently spank and hit are also teaching their children that violence is a good method of accomplishing a goal. Nonviolent methods are a more effective way of training children.\\
 
+It's the fact that all children misbehave, so almost every parent need to face the problem that how to discipline their children, in order to make them aware of their misbehave and never do it again. However there's an direct way to do -- physical punishment, that's what many parents always do and very efficiency. According to American Academy of Child \& Adolescent Psychiatry - Facts for Families, there're four kinds of physical punishment: spanking, slapping, hitting with object and making them eat some unpleasant substances. The most common one is spanking.\\
+Physical punishment may influence children's behavior in a short-term \parencite{aef2013org}(Robert Larzelere 1996), but it result in many bad side effect in a long-term. The study by Straus (1996) suggested that children who receive corporal punishment are more likely to be angry as adults. This study sounds reasonable, for the sake of the parents who easily use physical punishment may more likely to be angry, and that influence their children to be irritable when they grow up. Furthermore, to abuse physical punishment convert the relationship between parents and children from love to fear. In addition, it will impact their child in the rest of their life. Finally, if a child expose himself too much in the physical punishment, they will feel frustrating and poor self-esteem.\\
+The right way to teach children is not to find a method how to punish their misbehavior, but to encourage their good behavior. Praising a good behavior is called positive reinforcement and leads to more of that behavior (Facts for Families 2008). It's more helpful if parents explain to children what the discipline is and how they handle them. For example, telling them that, when they follow the rules, a rewards will give them, and when they break the rules in contrast, there's nothing to give them. Research shows that this aspect of teaching children will make them more self-reliant and self-controlled. Maybe it's a better way, compared to simple physical punishment.
+
+\printbibliography
 
 \end{document}

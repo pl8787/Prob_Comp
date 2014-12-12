@@ -91,8 +91,10 @@ Assign values to variables deterministically, one at a time, in an arbitrary ord
 $x_1, x_2, \dots , x_n$. Suppose that we have assigned the first k edge. Let $y_1, y_2, \dots , y_k$
 be the corresponding assigned values. We compute the two quantities,
 \begin{equation}
+    \begin{split}
     E[X | x_1 = y_1, x_2 = y_2, . . . , x_k = y_k, x_{k+1} = color_1 ]\\
     E[X | x_1 = y_1, x_2 = y_2, . . . , x_k = y_k, x_{k+1} = color_2 ]\\
+    \end{split}
 \end{equation}
 and then choose the setting with larger expectation.
 \end{itemize}

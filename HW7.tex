@@ -1,0 +1,37 @@
+\documentclass[12pt]{article}
+\usepackage[ansinew]{inputenc} % ASCII (Western CP)
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\title{Probability and Computing - HW7}
+\author{Pang Liang\\ Student No. 201418013229033}
+
+\begin{document}
+\maketitle
+
+\section{Problem1}
+Consider a graph in $G_{n,p}$ with $p = c\frac{\ln{n}}{n}$. Use the second moment method to prove that if $c < 1$ then, for any constant $\epsilon > 0$ and for $n$ sufficiently large, the graph has isolated vertices with probability at least $1-\epsilon$.
+
+\section{Problem2}
+Prove the Asymmetric Lovasz Local Lemma: Let $\mathbb{A} = \{A_1, \dots, A_n\}$ be a set of finite events over a probability space, and for each $1 \le i \le n$, $\tau(A_i) \in \mathbb{A}$ is such that $A_i$ is mutually independent of all events not in $\tau(A_i)$. If $\sum_{A_j \in \tau(A_i)} Pr(A_j) \le 1/4 $ for all $i$, then $ Pr(\bigwedge_{i=1}^n \bar{A_i}) \ge \prod_{i=1}^n (1 - 2Pr(A_i))> 0$. [Hint: let $x(A_i) = 2Pr(A_i)$ and use the general Lovasz Local Lemma.]
+
+\section{Problem3}
+Given $\beta > 0$, a vertex-coloring of a graph $G$ is said to be $\beta$-frugal if (i) each pair of adjacent vertices has different colors, and (ii) no vertex has $\beta$ neighbors that have the same color.\\
+Prove that if $G$ has maximum degree $\Delta \ge \beta^\beta$ with $\beta \ge 2$, then $G$ has a $\beta$-frugal coloring with $16\Delta^{1+1/\beta}$ colors. [Hint: you may want to define two types of events corresponding to the two conditions of being $\beta$-frugal. Then the result in question 1 can be used.]
+
+\section{Problem4}
+Let $G = (V,E)$ be an undirected graph and suppose each $v \in V$ is associated with a set $S(v)$ of $8r$ colors, where $r \ge 1$. Suppose, in addition, that for each $v \in V$ and $c \in S(v)$ there are at most $r$ neighbors $u$ of $v$ such that $c$ lies in $S(u)$. \\
+Prove that there is a proper coloring of $G$ assigning to each vertex $v$ a color from its class $S(v)$ such that, for any edge $(u, v) \in E$, the colors assigned to $u$ and $v$ are different. You may want to let $A_{u,v,c}$ be the event that $u$ and $v$ are both colored with color $c$ and then consider the family of such events.
+
+\section{Problem5}
+Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
+string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
+
+1100111101 0000101001
+
+\end{document}
