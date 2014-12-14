@@ -17,8 +17,83 @@
 \section{Problem1}
 Consider a graph in $G_{n,p}$ with $p = c\frac{\ln{n}}{n}$. Use the second moment method to prove that if $c < 1$ then, for any constant $\epsilon > 0$ and for $n$ sufficiently large, the graph has isolated vertices with probability at least $1-\epsilon$.
 
+Solution:\\
+
+We consider the event $X_i$ denotes that the $i^{th}$ vertex is isolated. So
+\begin{equation}
+    X_i = \left \{ \begin{array}{ll}
+    1 & if\ v_i\ is\ isolated \\
+    0 & otherwise
+    \end{array}
+    \right.
+\end{equation}
+Let
+\begin{equation}
+    X = \sum_{i=1}^{n} (1-p)^{n-1}.
+\end{equation}
+so that
+\begin{equation}
+    E[X] = n (1-p)^{n-1}
+\end{equation}
+In order to prove that if $c < 1$ then, for any constant $\epsilon > 0$ and for $n$ sufficiently large, the graph has no isolated vertex with probability at most $\epsilon$. That means $Pr(X=0)=o(1)$.\\
+We wish to compute
+\begin{equation}
+    Var[x] = Var[\sum_{i=1}^{n} X_i].
+\end{equation}
+Applying Lemma 6.9, we see that we need to consider the covariance of the $X_i$.
+\begin{equation}
+    \begin{split}
+    Cov[X_iX_j] &= E[X_iX_j]-E[X_i]E[X_j]\\
+    &= (1-p)^{2n-3} - (1-p)^{n-1}*(1-p)^{n-1}\\
+    &= p(1-p)^{2n-3}
+    \end{split}
+\end{equation}
+So
+\begin{equation}
+    Var[X] \le E[X] + \sum Cov[X_iX_j] = E[X] + o(pn^2(1-p)^{2n-3})
+\end{equation}
+Then
+\begin{equation}
+    \begin{split}
+    Pr(X=0) &\le \frac{Var[X]}{E[X]^2}\\
+    &=\frac{1}{n (1-p)^{n-1}} + \frac{p}{1-p}
+    \end{split}
+\end{equation}
+for $p = c\frac{\ln{n}}{n}$ and $c<1$ with $n \to \infty$, $Pr(X=0) \to o(1)$. So the graph has isolated vertices with probability at least $1-\epsilon$.
+
 \section{Problem2}
 Prove the Asymmetric Lovasz Local Lemma: Let $\mathbb{A} = \{A_1, \dots, A_n\}$ be a set of finite events over a probability space, and for each $1 \le i \le n$, $\tau(A_i) \in \mathbb{A}$ is such that $A_i$ is mutually independent of all events not in $\tau(A_i)$. If $\sum_{A_j \in \tau(A_i)} Pr(A_j) \le 1/4 $ for all $i$, then $ Pr(\bigwedge_{i=1}^n \bar{A_i}) \ge \prod_{i=1}^n (1 - 2Pr(A_i))> 0$. [Hint: let $x(A_i) = 2Pr(A_i)$ and use the general Lovasz Local Lemma.]
+
+Solution:\\
+First we need to prove a lemma that if $0\le a_i \le 1/2$ for all $i=1,2,\dots,n$, then $\prod_{i=1}^n (1-2a_i) \ge 1-2\sum_{i=1}^n a_i$.\\
+Induction for $n$. When $n=1$, the inequality holds obviously. Assume that when $n=k$, the inequality holds. Consider the case when $n=k+1$,
+\begin{equation}
+    \begin{split}
+    \prod_{i=1}^{k+1}(1-2a_i) &= \prod_{i=1}^k (1-2a_i) (1-2a_{k+1}) \\
+    &\ge (1-2\sum_{i=1}^k a_i)(1-2a_{k+1})\\
+    &= 1-2\sum_{i=1}^{k+1} a_i + 4\sum_{i=1}^k a_i a_{k+1}\\
+    &\ge 1-2\sum_{i=1}^{k+1} a_i
+    \end{split}
+\end{equation}
+So the inequality holds.
+
+Using the general Lovasz Local Lemma, we set $x(A_i) = 2Pr(A_i)$. Then
+\begin{equation}
+    \begin{split}
+    x(A_i)\prod_{A_j\in \Gamma(A_i)}(1-x(A_j)) &= 2Pr(A_i)\prod_{A_j\in \Gamma(A_i)}(1-2Pr(A_j))\\
+    &\ge 2Pr(A_i) (1-2\sum_{A_j\in \Gamma(A_i)}Pr(A_j)\\
+    &\ge 2Pr(A_i) (1 - 2 * 1/4)\\
+    &= Pr(A_i)
+    \end{split}
+\end{equation}
+So the general Lovasz Local Lemma condition holds. Then we have the result
+\begin{equation}
+    \begin{split}
+    Pr(\bigwedge_{i=1}^n \bar{A_i}) &\ge \prod_{i=1}^n (1 - x(A_i))\\
+    &\ge \prod_{i=1}^n (1 - 2Pr(A_i))\\
+    &> 0.
+    \end{split}
+\end{equation}
 
 \section{Problem3}
 Given $\beta > 0$, a vertex-coloring of a graph $G$ is said to be $\beta$-frugal if (i) each pair of adjacent vertices has different colors, and (ii) no vertex has $\beta$ neighbors that have the same color.\\
