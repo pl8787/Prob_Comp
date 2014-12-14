@@ -65,6 +65,7 @@ for $p = c\frac{\ln{n}}{n}$ and $c<1$ with $n \to \infty$, $Pr(X=0) \to o(1)$. S
 Prove the Asymmetric Lovasz Local Lemma: Let $\mathbb{A} = \{A_1, \dots, A_n\}$ be a set of finite events over a probability space, and for each $1 \le i \le n$, $\tau(A_i) \in \mathbb{A}$ is such that $A_i$ is mutually independent of all events not in $\tau(A_i)$. If $\sum_{A_j \in \tau(A_i)} Pr(A_j) \le 1/4 $ for all $i$, then $ Pr(\bigwedge_{i=1}^n \bar{A_i}) \ge \prod_{i=1}^n (1 - 2Pr(A_i))> 0$. [Hint: let $x(A_i) = 2Pr(A_i)$ and use the general Lovasz Local Lemma.]
 
 Solution:\\
+
 First we need to prove a lemma that if $0\le a_i \le 1/2$ for all $i=1,2,\dots,n$, then $\prod_{i=1}^n (1-2a_i) \ge 1-2\sum_{i=1}^n a_i$.\\
 Induction for $n$. When $n=1$, the inequality holds obviously. Assume that when $n=k$, the inequality holds. Consider the case when $n=k+1$,
 \begin{equation}
@@ -99,9 +100,55 @@ So the general Lovasz Local Lemma condition holds. Then we have the result
 Given $\beta > 0$, a vertex-coloring of a graph $G$ is said to be $\beta$-frugal if (i) each pair of adjacent vertices has different colors, and (ii) no vertex has $\beta$ neighbors that have the same color.\\
 Prove that if $G$ has maximum degree $\Delta \ge \beta^\beta$ with $\beta \ge 2$, then $G$ has a $\beta$-frugal coloring with $16\Delta^{1+1/\beta}$ colors. [Hint: you may want to define two types of events corresponding to the two conditions of being $\beta$-frugal. Then the result in question 1 can be used.]
 
+Solution:\\
+
+By the following equation
+\begin{equation}
+    ({}_\beta^{\Delta+1}) = ({}_\beta^\Delta)+({}_{\beta-1}^{\Delta})
+\end{equation}
+we can prove that $({}_\beta^\Delta)$ is monotonically increasing for $\Delta$ when $\beta$ is given.\\
+Let the number of colors used to $\beta$-frugal coloring be $N=16\Delta^{1+1/\beta}$, and the algorithm assigns each vertex a uniformly random color.\\
+Now we define two types of events with total number of $m + n$, when n is the number of vertices, and $m$ is the number of edges:
+\begin{itemize}
+    \item The pair vertices of $e_i$ has the same color;
+    \item The vertex $v_i$ has $\beta$ neighbors that have the same color.
+\end{itemize}
+Define $d_i$ is the degree of vertex $i$.\\
+For each event $A_i$ in type $I$,
+\begin{equation}
+    Pr(A_i)=\frac{1}{N}
+\end{equation}
+For each event $A_i$ in type $II$,
+\begin{equation}
+    \begin{split}
+    Pr(A_i) &= ({}^{d_i}_\beta) (\frac{1}{N})^{\beta-1}\\
+    &\le ({}^\Delta_\beta) (\frac{1}{N})^{\beta-1}
+    \end{split}
+\end{equation}
+
+Consider the number of dependent events of each event in type $I$. First, each edge connected to the two vertices in the given edge has an event in type $I$, whose total number is at most $2(\Delta ? 1)$. Second, each vertex of the edge has an event in type $II$, whose total number is exactly 2. Thus, for each event $A_i$ in type $I$,
+\begin{equation}
+    \begin{split}
+    \sum_{A_j \in \Gamma(A_i)} Pr(A_j) &\le 2(\Delta-1)\frac{1}{N} + 2({}^\Delta_\beta)(\frac{1}{N})^{\beta-1}\\
+    &= 2[(\Delta-1)\frac{1}{16\Delta^{1+1/\beta}}] + ({}^\Delta_\beta) (\frac{1}{16\Delta^{1+1/\beta}})^{\beta-1}\\
+    &\le 2[\frac{1}{16} + \Delta \dot (\Delta-1) \cdots (\Delta-\beta+1)]
+    \end{split}
+\end{equation}
+
+This definition for events is hard to prove. Another proof from Alistair Sinclair is in the last section.
+
 \section{Problem4}
 Let $G = (V,E)$ be an undirected graph and suppose each $v \in V$ is associated with a set $S(v)$ of $8r$ colors, where $r \ge 1$. Suppose, in addition, that for each $v \in V$ and $c \in S(v)$ there are at most $r$ neighbors $u$ of $v$ such that $c$ lies in $S(u)$. \\
 Prove that there is a proper coloring of $G$ assigning to each vertex $v$ a color from its class $S(v)$ such that, for any edge $(u, v) \in E$, the colors assigned to $u$ and $v$ are different. You may want to let $A_{u,v,c}$ be the event that $u$ and $v$ are both colored with color $c$ and then consider the family of such events.
+
+Solution:\\
+
+Let $A_{u,v,c}$ be the bad event that $u$ and $v$, where $u$ and $v$ are adjacent, are both colored with color $c$. It is clear that the event happens only when the color c lies in both $S(u)$ and $S(v)$. If $c \notin S(u)$ or $c \notin S(v)$, then $Pr(A_{u,v,c}) = 0$, so we consider the case that $c \in S(u)$ and $c \in S(v)$. We derive that
+\begin{equation}
+    Pr(A_{u,v,c} \le \frac{1}{(8r)^2} = \frac{1}{64r^2}
+\end{equation}
+So, we can construct a dependency graph $G' = (V', E')$, where $V'$ consists of the events
+$\{A_{u,v,c}|(u, v) \in E\}$. Since for each $v \in V$ and $c \in S(v)$ there are at most $r$ neighbors $u$ of $v$ such that $c$ lies in $S(u)$, we have that $A_{u,v,c}$ has dependency on at most $8r \dot r +8r \dot r = 16r^2$ other events, the degree of $G'$, that is to say, d, is at most $16r^2$. Since $4 \dot Pr(A_{u,v,c}) \dot d \le 4 \dot (1/64r^2) \le 1$, by Lovasz local lemma, we have the desired result.
 
 \section{Problem5}
 Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
