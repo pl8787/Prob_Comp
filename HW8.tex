@@ -1,0 +1,43 @@
+\documentclass[12pt]{article}
+\usepackage[ansinew]{inputenc} % ASCII (Western CP)
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\title{Probability and Computing - HW8}
+\author{Pang Liang\\ Student No. 201418013229033}
+
+\begin{document}
+\maketitle
+
+\section{Problem1}
+Assume that two states $i$ and $j$ of a Markov chain belong to the same communicating class. Prove that $i$ is recurrent if so is $j$. [Hint: you can prove either straightforwardly or by showing that $i$ is recurrent if and only if $\sum_n p_{ii}^{(n)} = +\infty$. This formula follows from the fact that $p_{ii}^{(n)} = \sum_{n=1}^n r_{ii}^{(m)} p_{ii}^{(n-m)} $, where $r_{ii}^{(m)}$ is the probability that the chain first returns to $i$ at step $m$ if it starts at state $i$].
+
+Solution:\\
+
+
+\section{Problem2}
+Assume that two states $i$ and $j$ of a Markov chain belong to the same communicating class and are recurrent. It is known that $i$ is null recurrent if and only if the multi-step transition probability $p_{ii}^{(n)} $ satisfies $\lim_{n \to +\infty}p_{ii}^{(n)} = 0 $. Prove that $j$ is null recurrent if so is $i$.
+
+Solution:\\
+
+\section{Problem3}
+Given a finite markov chain, where finiteness means that there are a finite number of states, prove that
+\begin{enumerate}
+\item At least one state is recurrent.
+\item All recurrent states are positive recurrent.
+\end{enumerate}
+
+Solution:\\
+
+\section{Problem4}
+Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
+string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
+
+1100111101 0000101001
+
+\end{document}
