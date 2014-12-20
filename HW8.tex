@@ -19,11 +19,47 @@ Assume that two states $i$ and $j$ of a Markov chain belong to the same communic
 
 Solution:\\
 
+Suppose that state $i$ is recurrent, so $\sum_n p_{ii}^{(n)} = +\infty$. As we know state $j$ and $i$ belong to the same communicating class. So there exist $k_1$ and $k_2$ that $p_{ij}^{(k_1)} >0$ and $p_{ji}^{(k_2)} >0$.
+
+For all $n>0$ that
+\begin{equation}
+    p_{jj}^{(k_1+k_2+n)} \ge p_{ji}^{(k_1)} p_{ii}^{(n)} p_{ij}^{(k_2)}
+\end{equation}
+so we have
+\begin{equation}
+    \begin{split}
+    \sum_n p_{jj}^{(n)} &\ge \sum_n p_{jj}^{(k_1+k_2+n)} \\
+    &\ge \sum_n p_{ji}^{(k_1)} p_{ii}^{(n)} p_{ij}^{(k_2)} \\
+    &= p_{ji}^{(k_1)} p_{ij}^{(k_2)} \sum_n p_{ii}^{(n)} \\
+    &\ge +\infty
+    \end{split}
+\end{equation}
+So $j$ is recurrent.
 
 \section{Problem2}
 Assume that two states $i$ and $j$ of a Markov chain belong to the same communicating class and are recurrent. It is known that $i$ is null recurrent if and only if the multi-step transition probability $p_{ii}^{(n)} $ satisfies $\lim_{n \to +\infty}p_{ii}^{(n)} = 0 $. Prove that $j$ is null recurrent if so is $i$.
 
 Solution:\\
+
+Suppose that state $j$ is recurrent, so $\lim_{n \to +\infty}p_{jj}^{(n)} = 0 $. As we know state $j$ and $i$ belong to the same communicating class. So there exist $k_1$ and $k_2$ that $p_{ij}^{(k_1)} >0$ and $p_{ji}^{(k_2)} >0$.
+
+For all $n>0$ that
+\begin{equation}
+    \begin{split}
+    p_{jj}^{(k_1+k_2+n)} &\ge p_{ji}^{(k_1)} p_{ii}^{(n)} p_{ij}^{(k_2)}\\
+    p_{ii}^{(n)} &\le p_{ji}^{(k_1)} p_{jj}^{(k_1+k_2+n)} p_{ij}^{(k_2)}
+    \end{split}
+\end{equation}
+so we have
+\begin{equation}
+    \begin{split}
+    \lim_{n \to +\infty}p_{ii}^{(n)} &\le \lim_{n \to +\infty} p_{ji}^{(k_1)} p_{jj}^{(k_1+k_2+n)} p_{ij}^{(k_2)} \\
+    &\le p_{ji}^{(k_1)} \lim_{n \to +\infty}p_{jj}^{(k_1+k_2+n)} p_{ij}^{(k_2)} \\
+    &\le 0
+    \end{split}
+\end{equation}
+
+Because $\lim_{n \to +\infty}p_{ii}^{(n)} \ge 0$ ,so $\lim_{n \to +\infty}p_{ii}^{(n)} = 0$. $j$  is null recurrent.
 
 \section{Problem3}
 Given a finite markov chain, where finiteness means that there are a finite number of states, prove that
@@ -33,11 +69,30 @@ Given a finite markov chain, where finiteness means that there are a finite numb
 \end{enumerate}
 
 Solution:\\
+\begin{enumerate}
+    \item
+     Since there are a finite number of communicating classes, and
+since once the chain leaves a communicating class it cannot return, it must
+eventually settle into one communicating class. Thus, at least one state in this
+class is visited an unbounded number of times after the chain enters it.
+    \item
+    Let $C(i)$ denote the communicating contains state $i$. Let $p$ be the largest transition probability less than 1 from any states in $C(i)$.
+    \begin{equation}
+        h_{i,i} = \sum_t t r_{i,i}^t \le \sum_t t p^t
+    \end{equation}
+    Since there are finite state so $r_{i,i}^t = 0, t>n$. So 
+    \begin{equation}
+        h_{i,i} \le \sum_{t=1}^{n} t p^t \le \frac{n}{1-p} < \infty
+    \end{equation}
+    Then $i$ is positive recurrent.
+
+\end{enumerate}
+
 
 \section{Problem4}
 Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
 string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
 
-1100111101 0000101001
+0101011001 0011101000
 
 \end{document}
