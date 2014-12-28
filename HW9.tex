@@ -18,7 +18,15 @@
 Assume that the transition probability matrix of a Markov chain satisfies that the sum of the entries in each column is 1. Prove that the uniform distribution is a stationary distribution of this Markov chain.
 
 Solution:\\
-
+Suppose we have $n$ state so the uniform distribution is $\pi_i = \frac{1}{n}$ for $i \in \{1, 2, \cdots, n \}$. As the problem said that $\sum_i P_{ij} = 1$ for $j \in \{1, 2, \cdots, n\}$. So we set the $\pi(t)$ to uniform distribution. Then
+\begin{equation}
+    \begin{split}
+    \pi_j(t+1) &= \sum_i \pi_i(t) * P_{ij} \\
+    &= \frac{1}{n} \sum_i P_{ij} \\
+    & = \frac{1}{n} = \pi_j(t)
+    \end{split}
+\end{equation}
+So we have $\pi(t+1) = \pi(t)P$. That is means uniform distribution is a stationary distribution of this Markov chain.
 
 \section{Problem2}
 Let $X_n$ be the sum of $n$ independent rolls of a fair die. Show that, for any $k \ge 2$,
@@ -27,19 +35,36 @@ Let $X_n$ be the sum of $n$ independent rolls of a fair die. Show that, for any 
 \end{equation}
 
 Solution:\\
+Let $Y_n = X_n(mod\ k)$, so $Y_n$ has $k$ different state. And when $Y_n=0$ denote the event $X_n$ is divisible by $k$. Suppose the die has $m$ faces, for the die is fair, each rolls has the probability of $\frac{1}{m}$ to generate a number in range $[1, m]$.
 
+The state $j$ come from the $m$ state $(j-s)(mod\ k)$ where $s \in [1,m]$ all have the probability of $\frac{1}{m}$. That means
+\begin{equation}
+    \sum_i P_{ij} = \sum_s P_{(j-s)(mod\ k),j} = 1
+\end{equation}
+So the sum of the entries in each column of $P$ is 1. For the Problem 1 mention above we know the stationary distribution is uniform distribution, that $\pi_i = \frac{1}{k}$.
 
+According to Theorem 7.7 we have
+\begin{equation}
+    \begin{split}
+    \lim_{n \to \infty} Pr(X_n\ is\ divisible\ by\ k) &= \lim_{n \to \infty} Pr(Y_n = 0) \\
+    &= \lim_{n \to \infty} P_{00}^n \\
+    &= \pi_0\\
+    &= \frac{1}{k}
+    \end{split}
+\end{equation}
 
 \section{Problem3}
 Given a finite Markov chain, prove that a state i is recurrent if and only if $Pr[N_{ii} = \infty] = 1$, where $N_{ii}$ is the times of returning to $i$ if the chain starts at state $i$.
 
 Solution:\\
+Because $Pr(N_{ii}=\infty)=1$, so there exist $k$ that $r_{ii}^k>0$, then we have $\sum_{k > 1} r_{ii}^k >0$. For the state is finite, so $\sum_{k>1} r_{ii}^k = 1$. $i$ is recurrent.
 
+On the other hand, if state $i$ is recurrent and there exist finite states, so $\sum_{k>1} r_{ii}^k = 1$. So it will visit $i$ again and again. So the $N_{ii} = \infty$, that means $Pr(N_{ii}=\infty)=1$.
 
 \section{Problem4}
 Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
 string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
 
-0101011001 0011101000
+1101000011 1011101100
 
 \end{document}
