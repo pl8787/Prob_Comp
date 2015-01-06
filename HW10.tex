@@ -1,0 +1,29 @@
+\documentclass[12pt]{article}
+\usepackage[ansinew]{inputenc} % ASCII (Western CP)
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\title{Probability and Computing - HW10}
+\author{Pang Liang\\ Student No. 201418013229033}
+
+\begin{document}
+\maketitle
+
+\section{Problem1}
+Consider a Markov chain on the states $\{ 0,1,\dots n\}$, where for $i < n$ we have $P_{i,i+1} = 1/2$ and $P_{i,0} = 1/2$. Also, $P_{n,n} = 1/2$ and $P_{n,0} = 1/2$. This process can be viewed as a random walk on a directed graph with vertices $\{0, 1,\dots n \}$, where each vertex has two directed edges: one that returns to 0 and one that moves to the vertex with the next higher number (with a self loop at vertex n). Find the stationary distribution of this chain. (This example shows that random walks on directed graphs are different than random walks on undirected graphs.)
+
+\section{Problem2}
+Let n equidistant points be marked on a circle. Without loss of generality, we think of the points as being labeled clockwise from 0 to $n - 1$. Initially, a wolf begins at 0 and there is a sheep at each of the remaining $n - 1$ points. The wolf takes a random walks on the circle. For each step, it moves with probability $1/2$ to one neighboring point and with probability $1/2$ to the other neighboring point. At the first visit to a point, the wolf eats the sheep at the point. Which sheep is most likely to be the last eaten?
+
+\section{Problem3}
+Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
+string $s_1s_2 \cdots s_i \cdots s_{20}$, where $s_i$ is 1 if the $i^{th}$ trial gets Head, and otherwise is 0.
+
+1101110010 1010100010
+
+\end{document}
