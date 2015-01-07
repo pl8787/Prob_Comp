@@ -17,8 +17,51 @@
 \section{Problem1}
 Consider a Markov chain on the states $\{ 0,1,\dots n\}$, where for $i < n$ we have $P_{i,i+1} = 1/2$ and $P_{i,0} = 1/2$. Also, $P_{n,n} = 1/2$ and $P_{n,0} = 1/2$. This process can be viewed as a random walk on a directed graph with vertices $\{0, 1,\dots n \}$, where each vertex has two directed edges: one that returns to 0 and one that moves to the vertex with the next higher number (with a self loop at vertex n). Find the stationary distribution of this chain. (This example shows that random walks on directed graphs are different than random walks on undirected graphs.)
 
+Solution:
+
+There's a stationary distribution $\pi_i=\frac{1}{2^{i+1}}$ for $i \in \{0,1,\dots,n-1\}$, and $\pi_n=\frac{1}{2^n}$.\\
+For any $i \in \{1,\dots,n-1\}$ we have
+\begin{equation}
+    \begin{split}
+        \pi_i &= \pi_{i-1}*P_{i,i+1}\\
+        &= \frac{1}{2^i}\frac{1}{2}\\
+        &= \frac{1}{2^{i+1}}
+    \end{split}
+\end{equation}
+For $i=0$ we have
+\begin{equation}
+    \begin{split}
+        \pi_0 &= \sum_{i=0}^{n} \pi_{i}*P_{i,0}\\
+        &= \sum_{i=0}^{n-1} \frac{1}{2^{i+1}}*\frac{1}{2} + \frac{1}{2^{n}}*\frac{1}{2}\\
+        &= \sum_{i=2}^{n+1} \frac{1}{2^{i}} + \frac{1}{2^{n+1}}\\
+        &= \frac{1}{2}
+    \end{split}
+\end{equation}
+For $i=n$ we have
+\begin{equation}
+    \begin{split}
+        \pi_n &= \pi_{n-1}*P_{n-1,n} + \pi_{n}*P_{n,n}\\
+        &= \frac{1}{2^n}*\frac{1}{2} + \frac{1}{2^n}*\frac{1}{2}\\
+        &= \frac{1}{2^{n}}
+    \end{split}
+\end{equation}
+So we prove that $\pi$ is a stationary distribution. 
+
 \section{Problem2}
 Let n equidistant points be marked on a circle. Without loss of generality, we think of the points as being labeled clockwise from 0 to $n - 1$. Initially, a wolf begins at 0 and there is a sheep at each of the remaining $n - 1$ points. The wolf takes a random walks on the circle. For each step, it moves with probability $1/2$ to one neighboring point and with probability $1/2$ to the other neighboring point. At the first visit to a point, the wolf eats the sheep at the point. Which sheep is most likely to be the last eaten?
+
+Solution:
+
+First we let $z_i$ denote the probability of $i^{th}$ sheep to be the last eaten. So this question change to the question of Gambler's Ruin. There are two kinds of situations, the one is first reach the point $i-1$ before reach the point $i+1$, the other one is reach the point $i+1$ before reach the point $i-1$. They are equivalent, so we consider the first one.\\
+Because $i$ is the last one we visit, so at the point 0 we reach $i-1$ before reach the point $i+1$ has the probability of $\frac{n-i-1}{n-2}$. Then from $i-1$ we need visit $i+1$ before we visit $i$, so the probability is $\frac{1}{n-1}$.\\
+So the other situation is the probability $\frac{i-1}{n-2}$ and $\frac{1}{n-1}$. And
+\begin{equation}
+    \begin{split}
+    z_i & = \frac{n-i-1}{n-2}*\frac{1}{n-1} + \frac{i-1}{n-2}*\frac{1}{n-1}\\
+    &= \frac{1}{n-1}
+    \end{split}
+\end{equation}
+In conclusion that all sheep has the same probability to be the last eaten.
 
 \section{Problem3}
 Do Bernoulli experiment for 20 trials, using a new 1-Yuan coin. Record the result in a
